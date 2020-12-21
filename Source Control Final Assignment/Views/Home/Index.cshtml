@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Welcome";
+}
+
+<div class="row">
+    @if (Request.IsAuthenticated)
+    {
+        <h2>Welcome @User.Identity.GetUserName() !</h2>
+    }
+    <h3>Add new person:</h3>
+    @Html.ActionLink("Add Person", "Create", "People")
+    <h3>See people:</h3>
+    @Html.ActionLink("All People", "Index", "People")
+</div>

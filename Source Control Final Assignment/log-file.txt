@@ -1,0 +1,6 @@
+2020-12-20 19:11:11,571 [11] ERROR Source_Control_Final_Assignment.Controllers.PeopleController [(null)] - System.DivideByZeroException: Attempted to divide by zero.
+   at Source_Control_Final_Assignment.Controllers.PeopleController.Create(Person person) in D:\Gateway\Source Control Final Assignment\Controllers\PeopleController.cs:line 41
+2020-12-20 19:26:06,575 [8] ERROR Source_Control_Final_Assignment.Controllers.PeopleController [(null)] - System.DivideByZeroException: Attempted to divide by zero.
+   at Source_Control_Final_Assignment.Controllers.PeopleController.Create(Person person) in D:\Gateway\Source Control Final Assignment\Controllers\PeopleController.cs:line 41
+2020-12-21 09:24:53,507 [73] ERROR Source_Control_Final_Assignment.Controllers.PeopleController [(null)] - System.DivideByZeroException: Attempted to divide by zero.
+   at Source_Control_Final_Assignment.Controllers.PeopleController.Create(Person person) in D:\Gateway\Source Control Final Assignment\Controllers\PeopleController.cs:line 41
