@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@using Microsoft.AspNet.Identity;
+
+<div class="row" style="min-height:inherit">
+    <div class="col-lg-2 col-md-2 col-sm-4 text-center" style="min-height:inherit;">
+        <p class="text-white-50 my-5 mx-auto">Actions</p>
+        <br />
+        @Html.ActionLink("Products List", "Index", "Product", routeValues: null, htmlAttributes: new { @title = "Products", @class = "btn btn-block btn-warning text-white shadow mb-4" })
+        @Html.ActionLink("Add Product", "Create", "Product", routeValues: null, htmlAttributes: new { @title = "Add Product", @class = "btn btn-block btn-warning text-white shadow" })
+    </div>
+    <div class="col-lg-10 col-md-10 col-sm-8 text-center" style="min-height:inherit;">
+        <h2 class="text-white m-5">
+            Welcome @User.Identity.GetUserName() !
+        </h2>
+    </div>
+</div>

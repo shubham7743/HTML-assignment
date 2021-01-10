@@ -1,0 +1,177 @@
+﻿@model IEnumerable<ProductManagement.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center text-light my-5">Product List</h2>
+
+<div class="table-responsive bg-light p-3 mb-5">
+    @if (TempData.ContainsKey("message"))
+    {
+        var data = "";
+        if(TempData.ContainsKey("data"))
+        {
+            data = TempData["data"].ToString();
+        }
+        if (TempData["message"].ToString() == "created")
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> Product "@data" added successfully.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        else if (TempData["message"].ToString() == "edited")
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Edited!</strong> Product "@data" edited successfully.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        else if (TempData["message"].ToString() == "deleted")
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Deleted!</strong> Product "@data" deleted.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        else if (TempData["message"].ToString() == "deleted_multiple")
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Deleted!</strong> @data product(s) deleted.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+    }
+    @Html.ActionLink("+ New Product", "Create", routeValues: null, htmlAttributes: new { @class = "btn btn-success" })
+    @using (Html.BeginForm("DeleteMultiple", "Product", FormMethod.Post))
+    {
+        var i = 1;
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Delete Selected Products" class="btn btn-danger my-4" id="deleteButton" />
+        <table class="display table-bordered" id="list">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="checkAll" />
+                    </th>
+                    <th>
+                        Sr. No.
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Quantity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ShortDescription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SmallImagePath)
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="allId" value="@item.ID" />
+                        </td>
+                        <td>
+                            @i
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ShortDescription)
+                        </td>
+                        <td>
+                            <img src="@Url.Content(item.SmallImagePath)" height="50" width="50" />
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $("#checkAll").click(function () {
+                $("input[name='allId']").prop('checked', $(this).prop('checked'));
+            });
+
+            $("input[name='allId']").click(function () {
+                if ($("input[name='allId']").length == $("input[name='allId']:checked").length) {
+                    $("#checkAll").prop('checked', true);
+                }
+                else {
+                    $("#checkAll").prop('checked', false);
+                }
+            });
+
+            $("#deleteButton").click(function () {
+                var count = $("input[name='allId']:checked").length;
+                if (count == 0) {
+                    alert("No records selected to delete");
+                    return false;
+                }
+                else {
+                    return confirm(count + " record(s) will be deleted");
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('#list').DataTable({
+                columns: [
+                    { orderable: false },
+                    { orderable:false, searchable: false },
+                    null,
+                    null,
+                    { orderable: false },
+                    { orderable: false },
+                    { orderable: false },
+                    { orderable: false },
+                    { orderable: false, searchable: false }
+                ],
+                order: [[1,'asc']]
+            });
+        });
+    </script>
+}

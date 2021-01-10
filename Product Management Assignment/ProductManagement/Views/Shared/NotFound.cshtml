@@ -1,0 +1,21 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Page Not Found</title>
+    @Styles.Render("~/Style/bootstrap")
+</head>
+<body>
+    <div class="text-center">
+        <p class="text-danger mt-5 pt-5" style="font-size: 400%">404</p>
+        <p class="text-secondary" style="font-size: 125%">Page not found</p>
+        <p>@Html.ActionLink("Back to home page","Index","Home")</p>
+    </div>
+</body>
+</html>

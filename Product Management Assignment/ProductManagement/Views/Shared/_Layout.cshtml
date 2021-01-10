@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Product Management Portal</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark shadow">
+        <div class="container">
+            @if (Request.IsAuthenticated)
+            {
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            }
+            @Html.ActionLink("Product Management", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid body-content">
+        @RenderBody()
+    </div>
+    <footer class="py-4 bg-dark text-white-50">
+        <div class="container text-center">
+            <small>&copy; @DateTime.Now.Year Copyright. Product Managment Portal. <br/>Created by Shubham Lunker.</small>
+            <br/>
+            <br/>
+            <small>
+                Design Inspiration from Bootstrap Snippets by <a href="https://startbootstrap.com/snippets" target="_blank">https://startbootstrap.com/snippets</a>.
+                <br />
+                DataTables by <a href="https://datatables.net/" target="_blank">https://datatables.net/</a>.
+            </small>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/datatable")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

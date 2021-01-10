@@ -1,0 +1,2 @@
+2021-01-03 08:47:06,800 [74] ERROR ProductManagement.Controllers.ProductController [(null)] - System.DivideByZeroException: Attempted to divide by zero.
+   at ProductManagement.Controllers.ProductController.Create(Product product) in D:\Gateway\ProductManagement\Controllers\ProductController.cs:line 46

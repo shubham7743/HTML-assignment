@@ -1,0 +1,92 @@
+﻿@model ProductManagement.Models.Product
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto my-4">
+        <div class="card my-5 shadow" style="border-radius:25px;">
+            <div class="card-body p-5">
+                <section id="addProductForm">
+                    @using (Html.BeginForm("Create", "Product", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h4 class="card-title text-center">Add New Product</h4>
+                        <hr class="my-4 mx-5" />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <small class="text-danger">Fields marked with <b><sup>*</sup></b> are required.</small><br />
+                        <small class="text-secondary"><i>Maximum file size allowed for images is 3MB. Only JPG, JPEG and PNG files are allowed for images.</i></small>
+                        <div class="form-group mt-4">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })<b><sup class="text-danger"> *</sup></b>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group mt-4">
+                            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label" })<b><sup class="text-danger"> *</sup></b>
+                            @Html.DropDownListFor(model => model.Category, new SelectList(ViewBag.categories), "Select product category", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group mt-4">
+                            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })<b><sup class="text-danger"> *</sup></b>
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group mt-4">
+                            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label" })<b><sup class="text-danger"> *</sup></b>
+                            @Html.DropDownListFor(model => model.Quantity, new SelectList(ViewBag.quantities), "Select Quantity", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group mt-4">
+                            @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label" })<b><sup class="text-danger">*</sup></b>
+                            @Html.TextAreaFor(model => model.ShortDescription, htmlAttributes: new { @class = "form-control", @rows = "3" })
+                            @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group mt-4">
+                            @Html.LabelFor(model => model.LongDescription, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(model => model.LongDescription, htmlAttributes: new { @class = "form-control", @rows = "5" })
+                            @Html.ValidationMessageFor(model => model.LongDescription, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group mt-4">
+                            @Html.LabelFor(model => model.SmallImage, htmlAttributes: new { @class = "control-label" })<b><sup class="text-danger"> *</sup></b>
+                            @Html.TextBoxFor(model => model.SmallImage, htmlAttributes: new { @class = "form-control", @type = "file", @accept = ".jpg,.jpeg,.png",@data_val = "true", @data_val_required = "Small Image field is required" })
+                            @Html.ValidationMessageFor(model => model.SmallImage, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group mt-4">
+                            @Html.LabelFor(model => model.LargeImage, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.LargeImage, htmlAttributes: new { @class = "form-control", @type = "file", @accept = ".jpg,.jpeg,.png" })
+                            @Html.ValidationMessageFor(model => model.LargeImage, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group mt-5">
+                            <input type="submit" value="Add product" class="btn text-white btn-block" style="background: #007bff;background: linear-gradient(to right, #0062E6, #33AEFF); border-radius: 25px;" />
+                        </div>
+
+                        <div>
+                            @Html.ActionLink("Cancel", "Index", routeValues: null, htmlAttributes: new { @class = "btn btn-block btn-danger", @style = " border-radius: 25px;" })
+                        </div>
+                    }
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $.validator.unobtrusive.adapters.addSingleVal("filesize", "maxsize");
+        $.validator.addMethod("filesize", function (value, element, params) {
+            var files = $(element).prop('files');
+            size = files[0].size;
+            return size <= params * 1048576;
+        });
+    </script>
+}

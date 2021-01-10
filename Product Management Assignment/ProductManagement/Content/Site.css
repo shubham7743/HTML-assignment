@@ -1,0 +1,27 @@
+﻿body {
+    background: #007bff;
+    background: linear-gradient(to right, #0062E6, #33AEFF);
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    min-height: 550px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+.rounded-border {
+    border-radius: 25px !important;
+}
+
+.gradient-background {
+    background: #007bff !important;
+    background: linear-gradient(to right, #0062E6, #33AEFF) !important;
+}
